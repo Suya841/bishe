@@ -10,5 +10,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+
+#app {
+  background-color: #fafafa;
+}
 </style>

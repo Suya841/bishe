@@ -82,6 +82,8 @@ exports.styleLoaders = function (options) {
   return output
 }
 
+
+
 exports.createNotifierCallback = () => {
   const notifier = require('node-notifier')
 
