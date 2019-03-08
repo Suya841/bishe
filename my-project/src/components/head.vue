@@ -13,7 +13,7 @@
       <el-menu-item index="1" @click="goHome">首页</el-menu-item>
       <el-submenu index="2">
         <template slot="title">个人中心</template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
+        <el-menu-item index="2-1"  @click="user">选项1</el-menu-item>
         <el-menu-item index="2-2">选项2</el-menu-item>
         <el-menu-item index="2-3">选项3</el-menu-item>
         <el-submenu index="2-4">
@@ -50,6 +50,9 @@ export default {
     },
     login () {
       this.$router.push({name:'login'})
+    },
+    user () {
+      this.$router.push({name:'user'})
     }
   }
 };
