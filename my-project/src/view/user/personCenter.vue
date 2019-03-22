@@ -1,6 +1,7 @@
 <template>
     <div id="perCenter">
         <headmenu></headmenu>
+        <top></top>
         <div class="upPage">
             <div class="upPage-ue">
                 <!-- <img src="http://img2.imgtn.bdimg.com/it/u=1960548875,2286028701&fm=26&gp=0.jpg"> -->
@@ -50,10 +51,10 @@
             </div>
             <div class="centerPage-down">
                 <div class="centerPage-left">
-                    
+                    关注的人
                  </div>
                  <div class="centerPage-right">
-                 weiriehik
+                 自己的动态
                  </div>
             </div>
             
@@ -67,11 +68,13 @@
 <script>
 import headmenu from '../../components/head'
 import foote from '../../components/mfooter'
+import top from '../../components/top'
     export default {
         name: 'perCenter',
         components: {
             headmenu,
-            foote
+            foote,
+            top
         },
         data() {
             return {

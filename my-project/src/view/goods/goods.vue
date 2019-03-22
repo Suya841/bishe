@@ -3,10 +3,13 @@
     <!-- <div class="head"> -->
       <headmenu></headmenu>
     <!-- </div> -->
-    <div class="top" @click="toTop">
+    <!-- <div class="top" @click="toTop">
       <a><i class="el-icon-upload2"></i></a>      
-    </div>
+    </div> -->
+    <top></top>
+
     <div class="contant">
+
         <div class="leftImg">
             <img src="http://g.hiphotos.baidu.com/image/h%3D300/sign=e8ce788890510fb367197197e933c893/b999a9014c086e061396097a0c087bf40ad1cbc0.jpg" />
         </div>
@@ -138,11 +141,13 @@
 <script>
 import headmenu from '../../components/head'
 import foote from '../../components/mfooter'
+import top from '../../components/top'
 export default {
   name: "",
   components: {
     headmenu,
-    foote
+    foote,
+    top
   },
   data() {
     return {
@@ -160,18 +165,6 @@ export default {
     },
     handleChange () {
 
-    },
-    toTop () {
-        let timer = null;
-        timer = setInterval(() => {
-          let osTop = document.documentElement.scrollTop || document.body.scrollTop
-          let ispeed = Math.floor(-osTop / 5)
-          document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed
-          // this.isTop = true
-          if (osTop === 0) {
-            clearInterval(timer)
-          }
-        }, 56);
     }
   }
 };
@@ -180,7 +173,6 @@ export default {
 <style lang="less">
 //  @padd: 333px;
 @padd: 18%;
-
 
 .keyframes (@prefix,@name,@content) when (@prefix=def) {
   @keyframes @name {
@@ -260,29 +252,6 @@ body {
         position: fixed;
   }
 
-  .top {
-    width: 42px;
-    height: 42px;
-    background-color: #b6b9c0;
-    position: fixed;
-    top: 88%;
-    right: 0;
-    z-index: 999;
-    border-radius: 4px;
-    &:hover {
-      background-color: #515769;
-      transition: all .4s;
-    }
-    a {
-      width: 100%;
-      height: 100%;
-      display: inline-block;
-      color: white;
-      font-size: 26px;
-      text-align: center;
-      line-height: 42px;
-    }
-  }
 
   .content-lg {
     padding: 93px @padd;

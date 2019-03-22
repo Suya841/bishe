@@ -4,12 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import store from '@/store/store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// import iView from 'iview'
+// import 'iview/dist/styles/iview.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -17,6 +19,7 @@ Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(axios)
 Vue.use(VueAxios)
+// Vue.use(iView)
 
 /* eslint-disable no-new */
 new Vue({

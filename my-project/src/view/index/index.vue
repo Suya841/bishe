@@ -1,19 +1,22 @@
 <style lang="less">
 @import '../../../static/css/styleDesktop.less';
+@import 'element-ui/lib/theme-chalk/index.css';
 
 </style>
 
 <template>
   <div id="hello" @mousewheel="test" ref="hello" :style="{height: this.inHeight +'px'}">
-    <!-- <Title></Title> -->
       <div class="indexTit">
-        <div class="inbutton">
-          <i class="el-icon-menu"></i>
-          <span></span>
-        </div>
-          
+        <el-dropdown>
+             <div class="inbutton">
+                  <i class="el-icon-menu" @click="sss"></i>
+              </div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item><i class="el-icon-document" @click="sss"></i>分类</el-dropdown-item>
+            <el-dropdown-item><i class="el-icon-menu" @click="login"></i>登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
-
       <div class="coverflow" style="visibility: visible" ref="bian">
         <div class="long coverflow-holder" style="transform: translate3d(-139px,0px,0px)" ref="gun">
           <ul class="coverflow__images">
@@ -46,12 +49,12 @@
   </div>
 </template>
 <script>
-import Title from '../../components/head'
+// import Title from '../../components/head'
 export default {
   name: 'HelloWorld',
-  components: {
-    Title
-  },
+  // components: {
+  //   Title
+  // },
   data () {
     return {
       l: 0,
@@ -67,21 +70,21 @@ export default {
       photoClass: [
         {
           id: 0,
-          imgSrc: 'http://img2.imgtn.bdimg.com/it/u=549403656,1051390214&fm=26&gp=0.jpg',
+          // imgSrc: 'http://img2.imgtn.bdimg.com/it/u=549403656,1051390214&fm=26&gp=0.jpg',
           bgColor: '#344447',
           title: 'Ueda Tatsuya',
           href: ''
         },
         {
           id: 1,
-          imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1695338843,625967257&fm=26&gp=0.jpg',
+          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1695338843,625967257&fm=26&gp=0.jpg',
           bgColor: '#878787',
           title: 'Nakamaru Yuichi',
           href: ''
         },
         {
           id: 2,
-          imgSrc: 'http://img3.imgtn.bdimg.com/it/u=1528278318,1576433799&fm=26&gp=0.jpg',
+          // imgSrc: 'http://img3.imgtn.bdimg.com/it/u=1528278318,1576433799&fm=26&gp=0.jpg',
           bgColor: '#aa3434',
           title: 'Ueda Tatsuya',
           href: ''
@@ -95,7 +98,7 @@ export default {
         },
         {
           id: 4,
-          imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1463080326,3271525510&fm=26&gp=0.jpg',
+          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1463080326,3271525510&fm=26&gp=0.jpg',
           bgColor: '#e4544a',
           title: 'Akanishi Jin',
           href: ''
@@ -123,7 +126,7 @@ export default {
         },
         {
           id: 8,
-          imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1526489120,3313435496&fm=26&gp=0.jpg',
+          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1526489120,3313435496&fm=26&gp=0.jpg',
           bgColor: '#e6d7c3',
           title: 'Kanmenashi Kazuya',
           href: ''
@@ -187,6 +190,14 @@ export default {
       }
   },
   methods: {
+    sss() {
+
+    },
+    login() {
+      this.$router.push({
+        name: 'login'
+      })
+    },
     enter (e) {
       this.$refs.hello.style.backgroundColor = e.bgColor
       this.showIndex = e.id

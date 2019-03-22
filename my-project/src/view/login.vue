@@ -1,5 +1,5 @@
 <template>
-    <div id="login" :style="{height: Loginheight + 'px'}">
+    <div id="login" :style="{height: Loginheight + 'px'}" @keydown.enter="handleSubmit">
         <div class="head">
             <img src="../../static/image/mc-logo.png">
         </div>
@@ -7,25 +7,130 @@
             <el-row>
                 <h2>用户登录</h2>
             </el-row>
+            <ElForm :model="form" ref="loginForm" :rules="rules">
+              <ElFormItem prop="userName">
+                <el-input placeholder="用户名" v-model="form.userName" clearable >
+                    <span slot="prepend">
+                    <Icon :size="16" type="ios-person"></Icon>
+                </span>
+                </el-input>
+              </ElFormItem>
+              <ElFormItem prop="password">
+                <el-input placeholder="密码" v-model="form.password"  show-password>
+                    <span slot="prepend">
+                    <Icon :size="16" type="el-icon-delete"></Icon>
+                </span>
+                </el-input>
+              </ElFormItem>
+              <ElFormItem prop="newPassword" v-if="report">
+                <el-input placeholder="确认密码" v-model="form.newPassword"  show-password>
+                    <span slot="prepend">
+                    <Icon :size="16" type="ios-person"></Icon>
+                </span>
+                </el-input>
+              </ElFormItem>
+            </ElForm>
+                <!-- <el-input placeholder="用户名" v-model="form.userName" clearable ></el-input> -->
+                <!-- <el-input placeholder="密码" v-model="form.password"  show-password></el-input> -->
+                <!-- <el-input placeholder="确认密码" v-model="form.newPassword"  show-password v-if="report"></el-input> -->
+                <div class="login-other">
+                    <a @click="goHome">回到首页</a>
+                    <a v-if="report" @click="userLogin">已有账户登录</a>
+                    <a @click="join" v-else>立即注册</a>
+                </div>
             <div>
-                <el-input placeholder="用户名" v-model="userName" clearable ></el-input>
-                <el-input placeholder="密码" v-model="password"  show-password></el-input>
-            </div>
-            <div>
-                <el-button>denglu</el-button>
+                <el-button  @click="handleSubmit">{{btn}}</el-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
     export default {
         name: 'login',
+        layout: 'empty',
+        middleware: ['noauth'],
         data() {
+            var pass = (rule,value,callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'))
+                }else if (value !== this.form.password) {
+                    callback(new Error('两次密码输入不一致'))
+                }else {
+                    callback()
+                }
+            }
             return {
-                userName: '',
-                password: '',
-                Loginheight: document.documentElement.clientHeight
+                // userName: '',
+                // password: '',
+                btn: "登录",
+                report: false,
+                Loginheight: document.documentElement.clientHeight,
+                type: "",
+                form: {
+                  userName: "",
+                  password: "",
+                  newPassword: ""
+                },
+                rules: {
+                  userName: [
+                    { required: true, message: "账号不能为空", trigger: "blur" }
+                  ],
+                  password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+                  newPassword: [{ validator: pass,trigger: "blur" }]
+                },
+                nowYear: ""
+            }
+        },
+        mounted () {
+          this.nowYear = new Date().getFullYear()
+        },
+        methods: {
+            goHome () {
+              this.$router.push({
+                name: 'HelloWorld'
+              })
+            },
+            join() {
+                this.btn = "注册"
+                this.report = true
+                this.form = {}
+            },
+            userLogin() {
+                this.btn = "登录"
+                this.report = false
+                this.form = {}
+            },
+            ...mapActions({
+              authLogin: 'login'
+            }),
+            async handleSubmit () {
+              this.$refs.loginForm.validate(async (valid) => {
+                  console.log(this.$refs.loginForm.validate)
+                if (valid) {
+                  try {
+                    await this.authLogin({
+                      phone: this.form.userName,
+                      password: this.form.password
+                    })
+
+                    const { redirect } = this.$route.query
+                    console.log(redirect)
+                    const url = redirect || '/#/'
+                    if (window.$hashRedirect) {
+                      window.$hashRedirect(url)
+                    } else {
+                      window.location = url
+                    }
+                  } catch (e) {
+                      console.log("233333====")
+                      this.$message.error('cuola')
+                      console.log(e)
+                    // this.axios.$onError(e)
+                  }
+                }
+              })
             }
         }
     }
@@ -63,10 +168,15 @@ body,html {
     .login-content {
         text-align: center;
         width: 436px;;
-        height: 300px;
+        // height: 300px;
         margin: 119px auto;
         // background-color: #837498;
         box-shadow: 4px 4px 16px #aca8b4;
+
+        .el-form-item__error {
+            margin-left: 33px;
+            margin-top: -6px;
+        }
 
         .el-input {
             // margin: 10px;
@@ -100,6 +210,22 @@ body,html {
           background: #17bed2;
           transition: all .6s;
         }
+
+        .login-other {
+            float: right;
+            margin-right: 26px;
+            a {
+                margin-left: 23px;
+                color: #696969;
+                font-size: 13px;
+                cursor: pointer;
+                &:hover {
+                    color: #17bed2;
+                    text-decoration: underline;
+                }
+            }
+        }
+
     }
 }
     
