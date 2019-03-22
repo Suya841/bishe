@@ -47,7 +47,7 @@
 
         <div class="shoPage-center">
             <div class="centerPage-top">
-            jhdksndk
+            发布动态吧
             </div>
             <div class="centerPage-down">
                 <div class="centerPage-left">

@@ -7,13 +7,13 @@
 <template>
   <div id="hello" @mousewheel="test" ref="hello" :style="{height: this.inHeight +'px'}">
       <div class="indexTit">
-        <el-dropdown>
+        <el-dropdown @command="target">
              <div class="inbutton">
-                  <i class="el-icon-menu" @click="sss"></i>
+                  <i class="el-icon-menu"></i>
               </div>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><i class="el-icon-document" @click="sss"></i>分类</el-dropdown-item>
-            <el-dropdown-item><i class="el-icon-menu" @click="login"></i>登录</el-dropdown-item>
+            <el-dropdown-item><i class="el-icon-document"></i>分类</el-dropdown-item>
+            <el-dropdown-item command="login"><i class="el-icon-menu"></i>登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -190,13 +190,9 @@ export default {
       }
   },
   methods: {
-    sss() {
-
-    },
-    login() {
-      this.$router.push({
-        name: 'login'
-      })
+    target(command) {
+      console.log('555')
+        this.$router.push({name:command})
     },
     enter (e) {
       this.$refs.hello.style.backgroundColor = e.bgColor
