@@ -1,6 +1,6 @@
 <template>
   <div id="title">
-    <div class="img">
+    <div class="img" @click="tatget">
       <img src="../../static/image/title.png" >
     </div>
     <el-menu
@@ -16,16 +16,11 @@
         <el-menu-item index="2-1"  @click="user">选项1</el-menu-item>
         <el-menu-item index="2-2">选项2</el-menu-item>
         <el-menu-item index="2-3">选项3</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-menu-item index="3" @click="login">登录</el-menu-item>
       <el-menu-item index="4">
-        <a >关于</a>
+        关于
       </el-menu-item>
     </el-menu>
   </div>
@@ -53,6 +48,9 @@ export default {
     },
     user () {
       this.$router.push({name:'user'})
+    },
+    tatget () {
+      this.$router.push({name:'classify'})
     }
   }
 };
@@ -68,6 +66,7 @@ export default {
     background-color: white;
     border-bottom: 1px solid #e6e6e6;
     .img {
+        cursor: pointer;
         margin: 13px;
         width: 113px;
         height: 53px;
@@ -77,10 +76,18 @@ export default {
         img {
             height: inherit;
             width: inherit;
+            
         }
     }
 
+    .el-menu--horizontal>.el-menu-item.is-active {
+       border-bottom: 2px solid #17bed2;
+       color: #303133;
+      }
+
     .el-menu-demo {
+        
+
         border: none;
         top:0px;
         left: 63%;
@@ -88,6 +95,11 @@ export default {
         .el-menu-item, .el-submenu .el-submenu__title{
           height: 100%;
           line-height: 76px;
+          color: #929292;
+          font-size: 16px;
+          font-weight: 400;
+          text-transform: capitalize;
+          position: relative;
         }
 
     }

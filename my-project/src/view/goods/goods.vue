@@ -172,7 +172,7 @@ export default {
 
 <style lang="less">
 //  @padd: 333px;
-@padd: 18%;
+@padd: 16%;
 
 .keyframes (@prefix,@name,@content) when (@prefix=def) {
   @keyframes @name {

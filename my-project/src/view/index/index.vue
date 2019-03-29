@@ -1,7 +1,5 @@
 <style lang="less">
 @import '../../../static/css/styleDesktop.less';
-@import 'element-ui/lib/theme-chalk/index.css';
-
 </style>
 
 <template>
@@ -12,7 +10,7 @@
                   <i class="el-icon-menu"></i>
               </div>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><i class="el-icon-document"></i>分类</el-dropdown-item>
+            <el-dropdown-item command="classify"><i class="el-icon-document"></i>分类</el-dropdown-item>
             <el-dropdown-item command="login"><i class="el-icon-menu"></i>登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

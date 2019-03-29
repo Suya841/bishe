@@ -4,6 +4,7 @@ import HelloWorld from '@/view/index/index'
 import Hello from '@/components/HelloWorld'
 import Login from '@/view/login'
 import Goods from '@/view/goods/goods'
+import Classify from '@/view/goods/classify'
 import User from '@/view/user/personCenter'
 
 Vue.use(Router)
@@ -16,7 +17,7 @@ export default new Router({
       component: HelloWorld
     },
     {
-      path: '/goods',
+      path: '/classify/goods',
       name: 'goods',
       component: Goods
     },
@@ -29,6 +30,11 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: User
+    },
+    {
+      path: '/classify',
+      name: 'classify',
+      component: Classify
     }
   ]
 })
