@@ -120,7 +120,7 @@ html,body {
         .upPage {
              .upPage-up {
                  background-color: rgb(218, 6, 6);
-                background: url('http://img.hb.aicdn.com/82e9cfd9768084316e15d842a2185d3f9a99889ae864-wV0yxM_fw658') repeat 0% 80%;
+                background: url('../../../static/image/KAT-TUN.jpg') repeat 0% 80%;
              }
             .upPage-ue {
                 background-color: #7070706c;
