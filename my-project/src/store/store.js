@@ -51,8 +51,8 @@ const createStore = () => {
           commit('setUser', user)
         }
       },
-      async login ({ commit }, { phone, password }) {
-        const user = await axios.post('/user/auth/adminLogin', { phone, password })
+      async login ({ commit }, { userName, password }) {
+        const user = await axios.post('/api/user/addUser', { userName, password })
         commit('setUser', user)
 
         localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(user))

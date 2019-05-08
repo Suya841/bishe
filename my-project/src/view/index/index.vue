@@ -189,7 +189,6 @@ export default {
   },
   methods: {
     target(command) {
-      console.log('555')
         this.$router.push({name:command})
     },
     enter (e) {
@@ -212,13 +211,6 @@ export default {
       if(!i) {
         return
       }
-      // setTimeout(() => {
-      //   this.index += i
-      // console.log("settio===")
-      // console.log(this.index)
-
-      // },500 )
-
       if(!this.tt) {
         this.index += i
           this.tt = true
@@ -226,8 +218,6 @@ export default {
           setTimeout(function (){
             that.tt = false
           },400)
-          // console.log("settio===")
-          // console.log(this.index)
         }
 
       if (this.index >= this.photoClasslength - 1) {

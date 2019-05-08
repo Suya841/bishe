@@ -15,7 +15,7 @@
         </div>
         <div class="detail">
             <div class="detail-item">
-              <h2>About Me</h2>
+              <h2>标题</h2>
               <p>I'm Alisa Portman, orem ipsum dolor sit amet, consectetur adipisicing elit, 
                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -24,7 +24,7 @@
                 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
-              <el-button>DOWNLOAD MY</el-button>
+              <el-button>收 藏</el-button>
             </div>
             <div class="detailLikes">
               <h2>About Me</h2>
@@ -378,7 +378,7 @@ body {
         .el-button {
           background-color: #f3f4f5;
           border: none;
-          padding: 17px 21px;
+          padding: 16px 50px;
           margin: 6px 0;
           font-weight: 600;
           &:hover {

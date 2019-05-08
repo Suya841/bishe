@@ -24,11 +24,11 @@
                                       </ElFormItem>
                                       <ElFormItem label="">
                                           <ElCheckboxGroup v-model="searchForm.checkList">
-                                            <ElCheckbox label="baide"></ElCheckbox>
-                                            <ElCheckbox label="baeide"></ElCheckbox>
-                                            <ElCheckbox label="bawide"></ElCheckbox>
-                                            <ElCheckbox label="beraide"></ElCheckbox>
-                                            <ElCheckbox label="bair3de"></ElCheckbox>
+                                            <ElCheckbox label="原木"></ElCheckbox>
+                                            <ElCheckbox label="地中海"></ElCheckbox>
+                                            <ElCheckbox label="日式"></ElCheckbox>
+                                            <ElCheckbox label="焦糖色"></ElCheckbox>
+                                            <ElCheckbox label="北欧"></ElCheckbox>
                                           </ElCheckboxGroup>
                                       </ElFormItem>
                                       <ElFormItem label="">

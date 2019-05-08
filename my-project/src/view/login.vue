@@ -5,28 +5,40 @@
         </div>
         <div class="login-content">
             <el-row>
-                <h2>用户登录</h2>
+                <h2>用户{{btn}}</h2>
             </el-row>
             <ElForm :model="form" ref="loginForm" :rules="rules">
               <ElFormItem prop="userName">
                 <el-input placeholder="用户名" v-model="form.userName" clearable >
-                    <span slot="prepend">
-                    <Icon :size="16" type="ios-person"></Icon>
-                </span>
+                    <i
+                      class="el-icon-edit el-input__icon"
+                      slot="prefix"
+                     >
+                    </i>
                 </el-input>
               </ElFormItem>
               <ElFormItem prop="password">
                 <el-input placeholder="密码" v-model="form.password"  show-password>
-                    <span slot="prepend">
-                    <Icon :size="16" type="el-icon-delete"></Icon>
-                </span>
+                  <i
+                    class="el-icon-bell el-input__icon"
+                    slot="prefix"
+                   >
+                  </i>    
+                    <!-- <span >
+                    <Icon :size="16" type="el-icon-edit"></Icon>
+                </span> -->
                 </el-input>
               </ElFormItem>
               <ElFormItem prop="newPassword" v-if="report">
                 <el-input placeholder="确认密码" v-model="form.newPassword"  show-password>
-                    <span slot="prepend">
-                    <Icon :size="16" type="ios-person"></Icon>
-                </span>
+                    <i
+                      class="el-icon-bell el-input__icon"
+                      slot="prefix"
+                     >
+                    </i>
+                    <!-- <span >
+                    <Icon :size="16" type="el-icon-edit"></Icon>
+                </span> -->
                 </el-input>
               </ElFormItem>
             </ElForm>
@@ -39,7 +51,7 @@
                     <a @click="join" v-else>立即注册</a>
                 </div>
             <div>
-                <el-button  @click="handleSubmit">{{btn}}</el-button>
+                <el-button  @click="handleSubmit(btn)">{{btn}}</el-button>
             </div>
         </div>
     </div>
@@ -105,31 +117,53 @@
             ...mapActions({
               authLogin: 'login'
             }),
-            async handleSubmit () {
+            async handleSubmit (e) {
+              console.log(e)
+              console.log(this.$refs.loginForm)
               this.$refs.loginForm.validate(async (valid) => {
+              console.log('eeee==')
                   console.log(this.$refs.loginForm.validate)
-                if (valid) {
-                  try {
-                    await this.authLogin({
-                      phone: this.form.userName,
-                      password: this.form.password
-                    })
+                  console.log(valid)
 
-                    const { redirect } = this.$route.query
-                    console.log(redirect)
-                    const url = redirect || '/#/'
-                    if (window.$hashRedirect) {
-                      window.$hashRedirect(url)
-                    } else {
-                      window.location = url
-                    }
-                  } catch (e) {
-                      console.log("233333====")
-                      this.$message.error('cuola')
-                      console.log(e)
-                    // this.axios.$onError(e)
-                  }
+
+
+              console.log('join=====')
+               let args = {
+                  userName: this.form.userName,
+                  password: this.form.password
                 }
+                console.log(args)
+                this.$http.post('api/user/addUser',args)
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+
+                // if (valid) {
+                //   try {
+                //     await this.authLogin({
+                //       userName: this.form.userName,
+                //       password: this.form.password
+                //     })
+
+                //     const { redirect } = this.$route.query
+                //     console.log('redirect======')
+                //     console.log(redirect)
+                //     const url = redirect || '/#/'
+                //     if (window.$hashRedirect) {
+                //       window.$hashRedirect(url)
+                //     } else {
+                //       window.location = url
+                //     }
+                //   } catch (e) {
+                //       console.log("233333====")
+                //       this.$message.error('cuola')
+                //       console.log(e)
+                //     // this.axios.$onError(e)
+                //   }
+                // }
               })
             }
         }

@@ -71,9 +71,8 @@
                  </div>
             </div>
                   </ElTabPane>
-                  <ElTabPane label="资料">jin</ElTabPane>
                   <ElTabPane label="收藏">junno</ElTabPane>
-                  <ElTabPane label="关注">koki</ElTabPane>
+                  <ElTabPane label="资料">jin</ElTabPane>
                 </el-tabs>
            
             
@@ -100,6 +99,8 @@ import top from '../../components/top'
             return {
                 
             }
+        },
+        mounted () {
         }
     }
 </script>
@@ -269,14 +270,14 @@ html,body {
                             min-height: 566px;
                             justify-content: space-between;
                              .centerPage-left {
-                                width: 26%;
+                                width: 20%;
                                 height: 236px;
                                 background-color: #fff;
                                 box-shadow: 2px 3px 18px #e7e7df;
                              }
      
                              .centerPage-right {
-                                width: 70%;
+                                width: 78%;
                                 min-height: 339px;
                                 background-color: #fff;
                                 box-shadow: 2px 3px 28px #e7e7df;
