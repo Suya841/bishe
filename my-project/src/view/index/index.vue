@@ -194,13 +194,13 @@ export default {
     getData() {
 
         let args = {
-          id : 3
+          id : 0
         }
 
         this.$ajax.post('/api/goods/list',args)
         .then((res) => {
-          console.log(res);
-          this.photoClass = res.data
+          console.log(res.data);
+          this.photoClass = res.data.data
         })
 
     },
