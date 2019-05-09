@@ -9,13 +9,15 @@ import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import store from '@/store/store'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
+// import VueAxios from 'vue-axios'
 import VurResoutce from 'vue-resource'
-import func from './public/func'
-import api from '../../back-end/api'
+// import func from './public/func' //
+import api from '../server/api'
+// import axios from 'axios'
+
 // import iView from 'iview'
 // import 'iview/dist/styles/iview.css'
-// Vue.prototype.$ajax= axios
+Vue.prototype.$ajax= axios
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -23,18 +25,17 @@ Vue.use(VueRouter)
 Vue.use(VurResoutce)
 Vue.use(Vuex)
 // Vue.use(axios)
-Vue.use(VueAxios)
+// Vue.use(VueAxios)
 // Vue.use(iView)
-Vue.prototype.$http = axios
-Vue.prototype.api = api
-Vue.prototype.func = func
+// Vue.prototype.$http = axios
+Vue.prototype.api = api //和后台相同的api地址
+// Vue.prototype.func = func
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
-  axios,
   components: { App },
   template: '<App/>'
 })

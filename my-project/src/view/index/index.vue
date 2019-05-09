@@ -65,92 +65,93 @@ export default {
       index: 0,
       photoClasslength: 0,
       inHeight: document.documentElement.clientHeight,
-      photoClass: [
-        {
-          id: 0,
-          // imgSrc: 'http://img2.imgtn.bdimg.com/it/u=549403656,1051390214&fm=26&gp=0.jpg',
-          bgColor: '#344447',
-          title: 'Ueda Tatsuya',
-          href: ''
-        },
-        {
-          id: 1,
-          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1695338843,625967257&fm=26&gp=0.jpg',
-          bgColor: '#878787',
-          title: 'Nakamaru Yuichi',
-          href: ''
-        },
-        {
-          id: 2,
-          // imgSrc: 'http://img3.imgtn.bdimg.com/it/u=1528278318,1576433799&fm=26&gp=0.jpg',
-          bgColor: '#aa3434',
-          title: 'Ueda Tatsuya',
-          href: ''
-        },
-        {
-          id: 3,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2604471531,828309643&fm=26&gp=0.jpg',
-          bgColor: '#c3a182',
-          title: 'Kamenashi Kazuya',
-          href: ''
-        },
-        {
-          id: 4,
-          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1463080326,3271525510&fm=26&gp=0.jpg',
-          bgColor: '#e4544a',
-          title: 'Akanishi Jin',
-          href: ''
-        },
-        {
-          id: 5,
-          imgSrc: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=901491739,4077729798&fm=26&gp=0.jpg',
-          bgColor: '#778d9b',
-          title: 'Taguchi Junnosuke',
-          href: ''
-        },
-        {
-          id: 6,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-          bgColor: '#244b67',
-          title: 'Tanaka Koki',
-          href: ''
-        },
-        {
-          id: 7,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-          bgColor: '#b55243',
-          title: 'Kanmenashi Kazuya',
-          href: ''
-        },
-        {
-          id: 8,
-          // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1526489120,3313435496&fm=26&gp=0.jpg',
-          bgColor: '#e6d7c3',
-          title: 'Kanmenashi Kazuya',
-          href: ''
-        },
-        {
-          id: 9,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-          bgColor: '#efbaae',
-          title: 'Kanmenashi Kazuya',
-          href: ''
-        },
-        {
-          id: 10,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-          bgColor: '#6681a3',
-          title: 'Kanmenashi Kazuya',
-          href: ''
-        },
-        {
-          id: 11,
-          imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-          bgColor: '#e0bda1',
-          title: 'Kanmenashi Kazuya',
-          href: ''
-        }
-      ]
+      photoClass: []
+      // photoClass: [
+      //   {
+      //     id: 0,
+      //     // imgSrc: 'http://img2.imgtn.bdimg.com/it/u=549403656,1051390214&fm=26&gp=0.jpg',
+      //     bgColor: '#344447',
+      //     title: 'Ueda Tatsuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 1,
+      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1695338843,625967257&fm=26&gp=0.jpg',
+      //     bgColor: '#878787',
+      //     title: 'Nakamaru Yuichi',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 2,
+      //     // imgSrc: 'http://img3.imgtn.bdimg.com/it/u=1528278318,1576433799&fm=26&gp=0.jpg',
+      //     bgColor: '#aa3434',
+      //     title: 'Ueda Tatsuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 3,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2604471531,828309643&fm=26&gp=0.jpg',
+      //     bgColor: '#c3a182',
+      //     title: 'Kamenashi Kazuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 4,
+      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1463080326,3271525510&fm=26&gp=0.jpg',
+      //     bgColor: '#e4544a',
+      //     title: 'Akanishi Jin',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 5,
+      //     imgSrc: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=901491739,4077729798&fm=26&gp=0.jpg',
+      //     bgColor: '#778d9b',
+      //     title: 'Taguchi Junnosuke',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 6,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
+      //     bgColor: '#244b67',
+      //     title: 'Tanaka Koki',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 7,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
+      //     bgColor: '#b55243',
+      //     title: 'Kanmenashi Kazuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 8,
+      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1526489120,3313435496&fm=26&gp=0.jpg',
+      //     bgColor: '#e6d7c3',
+      //     title: 'Kanmenashi Kazuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 9,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
+      //     bgColor: '#efbaae',
+      //     title: 'Kanmenashi Kazuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 10,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
+      //     bgColor: '#6681a3',
+      //     title: 'Kanmenashi Kazuya',
+      //     href: ''
+      //   },
+      //   {
+      //     id: 11,
+      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
+      //     bgColor: '#e0bda1',
+      //     title: 'Kanmenashi Kazuya',
+      //     href: ''
+      //   }
+      // ]
     }
   },
   mounted () {
@@ -162,7 +163,9 @@ export default {
     window.addEventListener('resize', this.handle, true)
     // window.addEventListener('mousewheel', this.mouse, true)
     this.photoClasslength = this.photoClass.length
-      this.$refs.hello.style.backgroundColor = '#fafafa'
+    this.$refs.hello.style.backgroundColor = '#fafafa'
+
+    this.getData()
 
   },
   watch: {
@@ -188,6 +191,19 @@ export default {
       }
   },
   methods: {
+    getData() {
+
+        let args = {
+          id : 3
+        }
+
+        this.$ajax.post('/api/goods/list',args)
+        .then((res) => {
+          console.log(res);
+          this.photoClass = res.data
+        })
+
+    },
     target(command) {
         this.$router.push({name:command})
     },

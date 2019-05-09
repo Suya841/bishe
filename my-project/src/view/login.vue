@@ -81,7 +81,7 @@
                 Loginheight: document.documentElement.clientHeight,
                 type: "",
                 form: {
-                  userName: "",
+                  userName: "", 
                   password: "",
                   newPassword: ""
                 },
@@ -101,7 +101,7 @@
         methods: {
             goHome () {
               this.$router.push({
-                name: 'HelloWorld'
+                name: 'index'
               })
             },
             join() {
@@ -117,15 +117,9 @@
             ...mapActions({
               authLogin: 'login'
             }),
-            async handleSubmit (e) {
+            handleSubmit (e) {
               console.log(e)
-              console.log(this.$refs.loginForm)
-              this.$refs.loginForm.validate(async (valid) => {
-              console.log('eeee==')
-                  console.log(this.$refs.loginForm.validate)
-                  console.log(valid)
-
-
+              this.$refs.loginForm.validate((valid) => {
 
               console.log('join=====')
                let args = {
@@ -133,13 +127,30 @@
                   password: this.form.password
                 }
                 console.log(args)
-                this.$http.post('api/user/addUser',args)
-                .then((res) => {
-                  console.log(res)
-                })
-                .catch((err) => {
-                  console.log(err)
-                })
+
+                if(e == '登录') {
+                  this.$http.post('/api/user/login',args,{})
+                  .then((res) => {
+                    let loginData = res.data
+                    if (loginData.code == 200) {
+                      this.$router.push({name:'index'})
+                    }else if(loginData.code == 400){
+                        this.$message({
+                         message: loginData.msg,
+                         type: 'warning'
+                       });
+                    }
+
+                    console.log(res.data);
+                  })
+                }else {
+                  this.$ajax.post('/api/user/addUser',args)
+                  .then((res) => {
+                    console.log(res);
+                  })
+                }
+
+               
 
                 // if (valid) {
                 //   try {

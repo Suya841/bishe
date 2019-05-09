@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="panel-body recent-property-widget">
                                     <ul>
-                                        <li v-for="k in 6">
+                                        <li v-for="k in 6" :key="k">
                                             <ElRow>
                                               <ElCol :span="8">
                                                   <div class="blg-thumb">

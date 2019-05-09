@@ -32,7 +32,7 @@ export default {
     },
     goHome () {
       this.$router.push({
-        name: 'HelloWorld'
+        name: 'index'
       })
     },
     login () {
