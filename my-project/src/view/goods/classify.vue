@@ -27,7 +27,7 @@
                                             <ElCheckbox label="原木"></ElCheckbox>
                                             <ElCheckbox label="地中海"></ElCheckbox>
                                             <ElCheckbox label="日式"></ElCheckbox>
-                                            <ElCheckbox label="焦糖色"></ElCheckbox>
+                                            <ElCheckbox label="公寓"></ElCheckbox>
                                             <ElCheckbox label="北欧"></ElCheckbox>
                                           </ElCheckboxGroup>
                                       </ElFormItem>
@@ -44,17 +44,17 @@
                                 </div>
                                 <div class="panel-body recent-property-widget">
                                     <ul>
-                                        <li v-for="k in 6" :key="k">
+                                        <li v-for="(item,key) in rankingList" :key="key">
                                             <ElRow>
                                               <ElCol :span="8">
                                                   <div class="blg-thumb">
-                                                    <img src="http://img2.imgtn.bdimg.com/it/u=2967757913,2353504495&fm=26&gp=0.jpg">
+                                                    <img :src="item.imgSrc">
                                                     <span class="property-seeker"></span>
                                                   </div>
                                               </ElCol>
                                               <ElCol :span="14">
                                                   <div class="blg-entry">
-                                                      <h6>title</h6>
+                                                      <h6>{{item.title}}</h6>
                                                       <span class="property-price">content</span>
                                                   </div>
                                               </ElCol>
@@ -68,20 +68,20 @@
                     </el-col>
                     <el-col :span="18">
                         <div class="clear">
-                            <div class="proerty" v-for="i in 10" :key="i">
+                            <div class="proerty" v-for="(item,key) in goodsList" :key="key">
                                 <div class="proerty-item" >
                                     <div class="item-thumb">
-                                        <img src="https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=764492822,449708269&fm=85&s=27344922DAF353BDFEB10CD60000C0E0" alt="">
+                                        <img :src="item.imgSrc" alt="">
                                     </div>
                                     <div class="item-entry">
                                         <div class="item-entry-title">
-                                            <h4>SUPER NICE VILLA</h4>
+                                            <h4>{{item.title}}</h4>
                                         </div>
                                         <div class="item-entry-content">
                                             <div class="style">风格</div>
                                             <div class="biao">
                                                 <!-- <img src="../../../static/image/biao.png" alt="biaoqian"> -->
-                                                标jhksjahfkhahi阿尔hi分安慰哈复活卡看到回复可见啊回复jhf 签  </div>
+                                                {{item.style}}  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -90,8 +90,8 @@
                         <div class="pagination">
                             <el-pagination
                               background
-                              layout="prev, pager, next"
-                              :total="1000">
+                              layout="total,prev, pager, next"
+                              :total="totla">
                             </el-pagination>
                         </div>
                     </el-col>
@@ -117,13 +117,65 @@ import top from '../../components/top'
             return {
                 searchForm: {
                     checkList: []
-                }
+                },
+                goodsList:[],
+                rankingList: [],
+                totla: 0
             }
         },
+        mounted () {
+            this.getData()
+        },
         methods: {
+            getData() {
+                    
+                let args = {
+                  id : 0
+                }
+
+                this.$ajax.post('/api/goods/list',args)
+                .then((res) => {
+                  console.log(res.data);
+                  this.goodsList = res.data.data
+                  this.totla = res.data.cuur
+                })
+
+                this.$ajax.post('/api/goods/ranking',args)
+                .then((res) => {
+                  console.log(res.data);
+                  this.rankingList = res.data.data
+                })
+
+            },
             search() {
-                console.log('3333')
-                console.log(this.searchForm)
+               let list = this.searchForm
+               let rul = [] 
+
+               if (list.title) {
+                   rul.push(list.title)
+               }
+               if (list.checkList) {
+                   rul = rul.concat(list.checkList)
+               }
+               if(!list.title && list.checkList.length == 0) {
+                   this.$message({
+                         message: '请输入检索字段',
+                         type: 'warning'
+                       });
+                       return
+               }
+
+               let args = {
+                   rul: rul
+               }
+
+               this.$ajax.post('/api/goods/checkStyle',args)
+               .then((res) => {
+                   console.log(res.data);
+                  this.goodsList = res.data.data
+                  this.totla = res.data.cuur
+               })
+
             }
         }
     }
@@ -181,8 +233,7 @@ import top from '../../components/top'
                                     }
                                     .blg-entry {
                                         h6 {
-                                            font-size: 14px;
-                                            font-weight: bold;
+                                            font-size: 13px;
                                             text-transform: uppercase;
                                             margin: 10px 0;
                                             color: #48a3ad;
@@ -238,6 +289,7 @@ import top from '../../components/top'
                     justify-content: space-between;
                     .proerty {
                         margin-bottom: 16px;
+                        height: 356px;
                         .proerty-item {
                             border: 1px solid #cacaca6e;
                             width: 248px;
@@ -255,17 +307,20 @@ import top from '../../components/top'
                                     padding: 6px 6px;
                                     margin: 6px 10px;
                                     border-bottom: dotted 1px rgb(163, 166, 173);
+                                    height: 36px;
+                                    // width: 666px;
                                 }
                                 .item-entry-content {
                                     .style {
                                         padding: 0 6px;
                                     }
                                     .biao {
-                                        font-size: 9px;
+                                        font-size: 12px;
                                         // width: 39px;
                                         // height: 24px;
                                         line-height: 26px;
                                         text-align: right;
+                                        margin-right: 13px;
                                         // background: url(../../../static/image/biao.png) no-repeat;
                                         // background-size: 100%;
                                         // padding-right: 3px;

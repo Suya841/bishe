@@ -11,18 +11,12 @@
     <div class="contant">
 
         <div class="leftImg">
-            <img src="http://g.hiphotos.baidu.com/image/h%3D300/sign=e8ce788890510fb367197197e933c893/b999a9014c086e061396097a0c087bf40ad1cbc0.jpg" />
+            <img :src="goodsList[6].imgSrc" />
         </div>
         <div class="detail">
             <div class="detail-item">
-              <h2>标题</h2>
-              <p>I'm Alisa Portman, orem ipsum dolor sit amet, consectetur adipisicing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              <h2>{{goodsDetail[0].title}}</h2>
+              <p>{{goodsDetail[0].detail}}
               </p>
               <el-button>收 藏</el-button>
             </div>
@@ -56,22 +50,18 @@
             <div class="content-right">
                 <el-collapse v-model="activeNames" @change="handleChange" :accordion="true">
                   <el-collapse-item title=" Exceptional Frontend Framework" name="1">
-                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                       terry richardson ad squid. 3 wolf moon officia aute, 
-                       non cupidatat skateboard dolor brunch.</p>
+                    <p>拆除了原有分隔暗厅和厨房的墙和卫生间的部分隔断，把整个厨房空间和卫生间的洗漱空间开放出来，
+                      和原来的门厅连餐桌，功能丰富的同时最大程度上保证空间感；
+                    </p>
                   </el-collapse-item>
-                  <el-collapse-item title="反馈 Feedback" name="2">
-                    <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                    <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
+                  <el-collapse-item title="Twoooo" name="2">
+                    <p>由于老房子的卫生间的管道导致了地面抬高，所以我们在连接卫生间和门厅的地方整体做了一步台阶并嵌入了灯带设计；</p>
                   </el-collapse-item>
-                  <el-collapse-item title="效率 Efficiency" name="3">
-                    <div>简化流程：设计简洁直观的操作流程；</div>
-                    <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                    <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+                  <el-collapse-item title="Threeeee" name="3">
+                    <p>简化流程：设计简洁直观的操作流程；把原有的生活阳台划为卫生间的一部分，作为独立的淋浴区使用；</p>
                   </el-collapse-item>
-                  <el-collapse-item title="可控 Controllability" name="4">
-                    <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                    <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                  <el-collapse-item title="Foruuuuu" name="4">
+                    <p>拆除了部分阳台的墙体和原有的窗户，把阳台打造成一个小型的休闲书房；</p>
                   </el-collapse-item>
                 </el-collapse>
             </div>
@@ -81,15 +71,15 @@
 
 
     <div class="masonry-grid">
-      <div class="masonry-grid-item" v-for="(i,idx) in 7" :key="idx">
+      <div class="masonry-grid-item" v-for="(i,idx) in goodsList" :key="idx">
         <div class="masonry-grid-infor">
-          <h2>Art Of Coding {{i}}</h2>
+          <h2>{{i.title}}</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipiscing 
             elit sed tempor incididunt ut laboret dolore magna 
             ut consequat siad esqudiat dolor</p>
         </div>
         <div class="masonry-grid-img">
-          <img src="http://demo.cssmoban.com/cssthemes5/twts_202_aitonepage/img/500x500/01.jpg">
+          <img :src='i.imgSrc'>
         </div>
       </div>
     </div>
@@ -153,10 +143,39 @@ export default {
     return {
       hide: '1',
       showIndex: 'hide',
-      activeNames: ['1']
+      activeNames: ['1'],
+      goodsList: [{}],
+      goodsDetail: []
     };
   },
+  mounted() {
+    this.getData()
+    this.getDetail()
+  },
   methods: {
+    getData() {
+
+        let args = {
+          id : 0
+        }
+
+        this.$ajax.post('/api/goods/list',args)
+        .then((res) => {
+          console.log(res.data);
+          this.goodsList = res.data.data
+        })
+
+    },
+    getDetail () {
+        let args = {
+          PID: 1
+        }
+
+        this.$ajax.post('/api/goods/detail',args)
+        .then((res) => {
+          this.goodsDetail = res.data.data
+        })
+    },
     mouseover() {
       this.hide = 'hide'
     },

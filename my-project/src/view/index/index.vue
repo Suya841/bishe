@@ -1,5 +1,5 @@
 <style lang="less">
-@import '../../../static/css/styleDesktop.less';
+@import '../../../static/css/styleDesktop.less'; 
 </style>
 
 <template>
@@ -16,7 +16,7 @@
         </el-dropdown>
       </div>
       <div class="coverflow" style="visibility: visible" ref="bian">
-        <div class="long coverflow-holder" style="transform: translate3d(-139px,0px,0px)" ref="gun">
+        <div class="long coverflow-holder" style="transform: translate3d(-139px,0px,0px),min-width: 1200px" ref="gun">
           <ul class="coverflow__images">
             <li
             v-for="(item,index) in photoClass" :key="item.id"
@@ -66,107 +66,21 @@ export default {
       photoClasslength: 0,
       inHeight: document.documentElement.clientHeight,
       photoClass: []
-      // photoClass: [
-      //   {
-      //     id: 0,
-      //     // imgSrc: 'http://img2.imgtn.bdimg.com/it/u=549403656,1051390214&fm=26&gp=0.jpg',
-      //     bgColor: '#344447',
-      //     title: 'Ueda Tatsuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 1,
-      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1695338843,625967257&fm=26&gp=0.jpg',
-      //     bgColor: '#878787',
-      //     title: 'Nakamaru Yuichi',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 2,
-      //     // imgSrc: 'http://img3.imgtn.bdimg.com/it/u=1528278318,1576433799&fm=26&gp=0.jpg',
-      //     bgColor: '#aa3434',
-      //     title: 'Ueda Tatsuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 3,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2604471531,828309643&fm=26&gp=0.jpg',
-      //     bgColor: '#c3a182',
-      //     title: 'Kamenashi Kazuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 4,
-      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1463080326,3271525510&fm=26&gp=0.jpg',
-      //     bgColor: '#e4544a',
-      //     title: 'Akanishi Jin',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 5,
-      //     imgSrc: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=901491739,4077729798&fm=26&gp=0.jpg',
-      //     bgColor: '#778d9b',
-      //     title: 'Taguchi Junnosuke',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 6,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-      //     bgColor: '#244b67',
-      //     title: 'Tanaka Koki',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 7,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-      //     bgColor: '#b55243',
-      //     title: 'Kanmenashi Kazuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 8,
-      //     // imgSrc: 'http://img0.imgtn.bdimg.com/it/u=1526489120,3313435496&fm=26&gp=0.jpg',
-      //     bgColor: '#e6d7c3',
-      //     title: 'Kanmenashi Kazuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 9,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-      //     bgColor: '#efbaae',
-      //     title: 'Kanmenashi Kazuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 10,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-      //     bgColor: '#6681a3',
-      //     title: 'Kanmenashi Kazuya',
-      //     href: ''
-      //   },
-      //   {
-      //     id: 11,
-      //     imgSrc: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=681381804,3579575908&fm=26&gp=0.jpg',
-      //     bgColor: '#e0bda1',
-      //     title: 'Kanmenashi Kazuya',
-      //     href: ''
-      //   }
-      // ]
     }
   },
   mounted () {
     let that = this
-    this.$nextTick(function () {
-      // console.log('eee')
-      that.elWidth = that.$refs.gun.clientWidth // 父元素的宽度
-    })
+    // this.$nextTick(function () {
+    //   // console.log('eee')
+    //   that.elWidth = that.$refs.gun.clientWidth // 父元素的宽度
+    // })
+
     window.addEventListener('resize', this.handle, true)
     // window.addEventListener('mousewheel', this.mouse, true)
-    this.photoClasslength = this.photoClass.length
+    console.log(this.$refs)
     this.$refs.hello.style.backgroundColor = '#fafafa'
 
     this.getData()
-
   },
   watch: {
       inHeight(val) {
@@ -200,7 +114,13 @@ export default {
         this.$ajax.post('/api/goods/list',args)
         .then((res) => {
           console.log(res.data);
-          this.photoClass = res.data.data
+          let data = res.data.data
+          for (let i = 0; i < data.length; i++) {
+            data[i].color = JSON.parse(data[i].color)
+          }
+          this.photoClass = data
+          this.photoClasslength = this.photoClass.length
+
         })
 
     },
@@ -217,16 +137,22 @@ export default {
     handle () {
       window.fullHeight = document.documentElement.clientHeight
       this.inHeight = window.fullHeight
-      this.elWidth = this.$refs.gun.clientWidth
+      console.log(this.$refs.gun)
+      this.elWidth = this.$refs.gun.offsetWidth
+      // this.elWidth = this.$refs.gun.clientWidth || 11
     },
     mouse () {
       console.log('aaa===')
     },
     test () {
+      console.log('test====')
+
       let i = this.befor()
+      console.log('i====' + i)
       if(!i) {
         return
       }
+      console.log('this.tt====' + this.tt)
       if(!this.tt) {
         this.index += i
           this.tt = true
@@ -244,6 +170,7 @@ export default {
       }
       // console.log(this.index)
       // console.log(this.$refs.bian.style)
+      console.log('this.l====' + this.index)
       this.$refs.bian.style.transform = 'translate3d(' + this.l + 'px,0px,0px)'
       this.$refs.bian.style.transition = 'all 1s ease'
       this.$refs.hello.style.backgroundColor = this.photoClass[this.index].bgColor
@@ -255,8 +182,8 @@ export default {
     },
     befor (e) {
       e = e || window.event
-      let ca = this.elWidth - this.screenWidth
-      let cl = Math.abs(this.l)
+      let ca = this.elWidth - this.screenWidth //元素宽度 屏幕宽度
+      let cl = Math.abs(this.l) //滚动的长度
       ca = parseInt(ca / 100) * 100 - 123 // 移到最后一张时停止
       // console.log(ca)
       if (e.wheelDelta) {
@@ -276,7 +203,7 @@ export default {
           // 当滑轮向上滚动时
           this.l += 160
           return -1
-        } else if (e.detail < 0 < 0 && cl < ca) {
+        } else if (e.detail < 0 && cl < ca) {
           // 当滑轮向下滚动时
           this.l -= 160
           return 1

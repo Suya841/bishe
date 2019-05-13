@@ -4,7 +4,15 @@ var sqlMap = {
         select: 'select * from user where name = ?'
     },
     goods: {
-        getList: 'select * from goods'
+        getList: 'select * from goods',
+        getDetail: 'select * from detail where PID = ?',
+        getStyle: 'select * from goods where style in (?)',
+        getRanking: 'select * from goods,ranking where goods.PID = ranking.PID order by ranking  limit 6'
+    },
+    content: {
+        upimg: 'insert into img(name,status,uid) values (?,?,?)',
+        uploadInfo: 'insert into content(id,userID,content,img,creatDate) values (0,?,?,?,?)',
+        getContent: 'select content.userID,headImg,name,content,img,creatDate from content,userInfo where content.userID = userInfo.userID order by creatDate desc limit 10'
     }
 }
 

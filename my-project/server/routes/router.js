@@ -8,5 +8,11 @@ router.post(api.userAdd,user.addOne)
 router.post(api.userLogin,user.userLogin)
 
 router.post(api.goodsList,goods.getList)
+router.post(api.goodsDetail,goods.getDetail)
+router.post(api.checkStyle,goods.checkStyle)
+router.post(api.checkRanking,goods.checkRanking)
+
+router.post(api.uploadInfo,goods.uploadInfo)
+router.post(api.getContent,goods.getContent)
 
 module.exports = router

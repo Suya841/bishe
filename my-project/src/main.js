@@ -14,6 +14,7 @@ import VurResoutce from 'vue-resource'
 // import func from './public/func' //
 import api from '../server/api'
 // import axios from 'axios'
+import { emoji } from './utils/emoji'
 
 // import iView from 'iview'
 // import 'iview/dist/styles/iview.css'
@@ -29,6 +30,7 @@ Vue.use(Vuex)
 // Vue.use(iView)
 // Vue.prototype.$http = axios
 Vue.prototype.api = api //和后台相同的api地址
+Vue.prototype.emoji = emoji 
 // Vue.prototype.func = func
 
 /* eslint-disable no-new */
