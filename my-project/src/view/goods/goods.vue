@@ -11,12 +11,12 @@
     <div class="contant">
 
         <div class="leftImg">
-            <img :src="goodsList[6].imgSrc" />
+            <img :src="goodsList[6].imgSrc" v-if="goodsList[6]" />
         </div>
         <div class="detail">
             <div class="detail-item">
-              <h2>{{goodsDetail[0].title}}</h2>
-              <p>{{goodsDetail[0].detail}}
+              <h2 v-if="goodsList[0]">{{goodsDetail[0].title}}</h2>
+              <p v-if="goodsList[0]">{{goodsDetail[0].detail}}
               </p>
               <el-button>收 藏</el-button>
             </div>
@@ -73,13 +73,13 @@
     <div class="masonry-grid">
       <div class="masonry-grid-item" v-for="(i,idx) in goodsList" :key="idx">
         <div class="masonry-grid-infor">
-          <h2>{{i.title}}</h2>
+          <h2 v-if="i">{{i.title}}</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipiscing 
             elit sed tempor incididunt ut laboret dolore magna 
             ut consequat siad esqudiat dolor</p>
         </div>
         <div class="masonry-grid-img">
-          <img :src='i.imgSrc'>
+          <img :src='i.imgSrc' v-if="i.imgSrc">
         </div>
       </div>
     </div>
@@ -144,8 +144,15 @@ export default {
       hide: '1',
       showIndex: 'hide',
       activeNames: ['1'],
-      goodsList: [{}],
-      goodsDetail: []
+      goodsList: [{
+                    imgSrc:'',
+                    title:''
+                }
+      ],
+      goodsDetail: [{
+                    imgSrc:'',
+                    title:''
+                }]
     };
   },
   mounted() {

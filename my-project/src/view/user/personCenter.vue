@@ -66,7 +66,19 @@
       <el-tabs class="tabs">
         <ElTabPane label="首页" class="shoPage">
           <div class="centerPage-down">
-            <div class="centerPage-left">关注的人</div>
+            <div class="centerPage-left">
+                <div class="left-title">她的关注（7）</div>
+                <div class="left-cont">
+                    <div class="left-user" v-for="(item,key) in reContent" :key="key">
+                        <div class="img">
+                            <img :src="item.headImg" alt="">
+                        </div>
+                        <div class="name">
+                            <div>{{item.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="centerPage-right">
               <el-row>发布动态</el-row>
               <el-row>
@@ -130,7 +142,7 @@
                 </div>
 
                 <div class="re-content">
-                    <span v-html = 'emoji(item.content)'></span>
+                    <div v-html = 'emoji(item.content)'></div>
                 </div>
 
                 <div class="re-img my-gallery">
@@ -226,11 +238,11 @@ export default {
     };
   },
   mounted() {
-    console.log("1111");
-    console.log(document.documentElement.scrollTop);
+    // console.log("1111");
+    // console.log(document.documentElement.scrollTop);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-    console.log(document.documentElement.scrollTop);
+    // console.log(document.documentElement.scrollTop);
     this.getList();
   },
   methods: {
@@ -257,8 +269,11 @@ export default {
             // list[i].img[y] = this.dataURLtoBlob(list[i].img[y])
           }
         }
-        console.log(list);
+        // console.log(list);
         this.reContent = list;
+        //  var pos = list[1].content.indexOf("\n");
+        //     console.log('pos===');
+        //     console.log(pos);
       });
     },
     getImageList(files) {
@@ -280,9 +295,7 @@ export default {
       this.imgList = [];
     },
     onSubmit() {
-      console.log("上传=======");
-      console.log(this.upform);
-      console.log(this.imgList);
+      this.upform.text = this.upform.text.replace(/\n/gm,"<br/>")
       let myDate = new Date();
       const Y = myDate.getFullYear();
       const M = myDate.getMonth() + 1;
@@ -291,8 +304,6 @@ export default {
       const MM = myDate.getMinutes(); //获取当前分钟数(0-59)
       const S = myDate.getSeconds(); //获取当前秒数(0-59)
       const curDay = Y + "-" + M + "-" + D + " " + H + ":" + MM + ":" + S;
-      console.log(myDate);
-      console.log(curDay);
       let img = JSON.stringify(this.imgList);
 
       let args = {
@@ -306,8 +317,6 @@ export default {
         this.upform = {};
         myDate = "";
         this.$refs.clear.clear();
-        console.log("this.imgList====");
-        console.log(this.imgList);
         this.$message({
           message: "发布成功",
           type: "success"
@@ -563,9 +572,46 @@ body {
       justify-content: space-between;
       .centerPage-left {
         width: 20%;
-        height: 236px;
+        height: 447px;
         background-color: #fff;
         box-shadow: 2px 3px 18px #e7e7df;
+        padding: 2px 5px;
+        .left-title {
+            padding: 6px 14px;
+        }
+        .left-cont {
+            // background-color: #748596;
+            padding-left: 26px;
+            margin-top: 10px;
+            .left-user {
+                width: 66px;
+                height: 86px;
+                display: inline-block;
+                margin:  6px 0;
+                .img {
+                    width: 50px;
+                    height: 50px;
+                    img {
+                        border-radius: 50%;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    margin-bottom: 1px;
+                }
+                .name {
+                    div {
+                        padding: 2px;
+                        border: 2px solid white;
+                        width: 44px;
+                        height: 14px;
+                        font-size: 12px;
+                        line-height: 16px;
+                        overflow: hidden;
+                    }
+
+                }
+            }
+        }
       }
 
       .centerPage-right {
@@ -584,7 +630,7 @@ body {
           margin-bottom: 10px;
           .emoji-box {
          position: absolute;
-         z-index: 10;
+         z-index: 9999;
          left: -10px;
          top: 24px;
          list-style: none;
@@ -723,6 +769,7 @@ body {
               width: 110px;
               height: 110px;
               margin: 1px;
+              cursor: pointer;
               img {
                 width: 100%;
                 height: 100%;

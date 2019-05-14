@@ -11,7 +11,8 @@
               </div>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="classify"><i class="el-icon-document"></i>分类</el-dropdown-item>
-            <el-dropdown-item command="login"><i class="el-icon-menu"></i>登录</el-dropdown-item>
+            <el-dropdown-item command="user" v-if="islogin =='isLogin'"><i class="el-icon-menu"></i>个人中心</el-dropdown-item>
+            <el-dropdown-item command="login" v-else><i class="el-icon-menu"></i>登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -25,7 +26,7 @@
             @mouseover="enter(item)"
             @mouseleave="out(item)"
           >
-            <a @click="detailPage">
+            <a @click="target('goods')">
             <div class="coverflow__image-title_container">
                 <div v-bind:class="{'show-title':showIndex == index}" class="coverflow__image-title">
                   {{item.title}}
@@ -56,8 +57,9 @@ export default {
   data () {
     return {
       l: 0,
+      tt: '',
       screenWidth: document.body.clientWidth,
-      elWidth: 0,
+      elWidth: this.$refs.gun,
       bgColor: '',
       showIndex: -1,
       showFade: false,
@@ -65,19 +67,24 @@ export default {
       index: 0,
       photoClasslength: 0,
       inHeight: document.documentElement.clientHeight,
-      photoClass: []
+      photoClass: [],
+      islogin: ''
     }
   },
   mounted () {
-    let that = this
-    // this.$nextTick(function () {
-    //   // console.log('eee')
-    //   that.elWidth = that.$refs.gun.clientWidth // 父元素的宽度
-    // })
-
-    window.addEventListener('resize', this.handle, true)
+    console.log('localStorage.flag==')
+    console.log(localStorage)
+    this.islogin = localStorage.flag
+    // let that = this
+      setTimeout(() => {
+        // console.log('eee')
+        // console.log(that.$refs.gun)
+        this.elWidth = this.$refs.gun.clientWidth // 父元素的宽度
+        console.log( this.elWidth)
+      }, 1000);
+      
+       window.addEventListener('resize', this.handle, false)
     // window.addEventListener('mousewheel', this.mouse, true)
-    console.log(this.$refs)
     this.$refs.hello.style.backgroundColor = '#fafafa'
 
     this.getData()
@@ -113,7 +120,7 @@ export default {
 
         this.$ajax.post('/api/goods/list',args)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           let data = res.data.data
           for (let i = 0; i < data.length; i++) {
             data[i].color = JSON.parse(data[i].color)
@@ -125,7 +132,19 @@ export default {
 
     },
     target(command) {
-        this.$router.push({name:command})
+      window.removeEventListener("resize", this.handle,false);
+      let num = ''
+      if (command == 'classify') {
+        num = '2'
+      }else if (command == 'user') {
+        num = '3'
+      } 
+
+        this.$router.push({name:command,
+        query: {
+                 num: num
+               }
+        })
     },
     enter (e) {
       this.$refs.hello.style.backgroundColor = e.bgColor
@@ -135,24 +154,23 @@ export default {
       this.showIndex = -1
     },
     handle () {
+      // console.log('clientHeight====')
+      // console.log(document.documentElement)
       window.fullHeight = document.documentElement.clientHeight
       this.inHeight = window.fullHeight
-      console.log(this.$refs.gun)
-      this.elWidth = this.$refs.gun.offsetWidth
-      // this.elWidth = this.$refs.gun.clientWidth || 11
+      // console.log("??????")
+      // console.log(this.$refs.gun)
+      this.elWidth = this.$refs.gun.clientWidth
     },
     mouse () {
       console.log('aaa===')
     },
-    test () {
-      console.log('test====')
-
-      let i = this.befor()
-      console.log('i====' + i)
+    test () {//滚轮事件
+      // console.log('test====')
+      let i = this.befor() //判断滚轮动作 计算范围动作是否生效
       if(!i) {
         return
       }
-      console.log('this.tt====' + this.tt)
       if(!this.tt) {
         this.index += i
           this.tt = true
@@ -170,15 +188,10 @@ export default {
       }
       // console.log(this.index)
       // console.log(this.$refs.bian.style)
-      console.log('this.l====' + this.index)
+      // console.log('this.l====' + this.index)
       this.$refs.bian.style.transform = 'translate3d(' + this.l + 'px,0px,0px)'
       this.$refs.bian.style.transition = 'all 1s ease'
       this.$refs.hello.style.backgroundColor = this.photoClass[this.index].bgColor
-    },
-    detailPage () {
-        this.$router.push({
-          name: 'goods'
-        })
     },
     befor (e) {
       e = e || window.event

@@ -14,27 +14,44 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: index
+      component: index,
+      meta: {
+        isLogin: false
+      }
     },
     {
       path: '/classify/goods',
       name: 'goods',
-      component: Goods
+      component: Goods,
+      meta: {
+        isLogin: false
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {
+        isLogin: false,
+        auth:true
+      }
     },
     {
       path: '/user',
       name: 'user',
-      component: User
+      component: User,
+      meta: {
+        isLogin: true,
+        auth:true
+      }
     },
     {
       path: '/classify',
       name: 'classify',
-      component: Classify
+      component: Classify,
+      meta: {
+        isLogin: false
+      }
     }
   ]
 })

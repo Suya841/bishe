@@ -129,11 +129,16 @@
                 console.log(args)
 
                 if(e == '登录') {
-                  this.$http.post('/api/user/login',args,{})
+                  this.$ajax.post('/api/user/login',args,{})
                   .then((res) => {
                     let loginData = res.data
                     if (loginData.code == 200) {
                       this.$router.push({name:'index'})
+                      localStorage.setItem("flag","isLogin")
+                      this.$store.dispatch('login',args)
+                      console.log('window.localStorage denglu======')
+                      console.log(window.localStorage)
+
                     }else if(loginData.code == 400){
                         this.$message({
                          message: loginData.msg,

@@ -47,14 +47,14 @@
                                         <li v-for="(item,key) in rankingList" :key="key">
                                             <ElRow>
                                               <ElCol :span="8">
-                                                  <div class="blg-thumb">
+                                                  <div class="blg-thumb" @click="detail">
                                                     <img :src="item.imgSrc">
                                                     <span class="property-seeker"></span>
                                                   </div>
                                               </ElCol>
                                               <ElCol :span="14">
                                                   <div class="blg-entry">
-                                                      <h6>{{item.title}}</h6>
+                                                      <h6 @click="detail">{{item.title}}</h6>
                                                       <span class="property-price">content</span>
                                                   </div>
                                               </ElCol>
@@ -70,12 +70,12 @@
                         <div class="clear">
                             <div class="proerty" v-for="(item,key) in goodsList" :key="key">
                                 <div class="proerty-item" >
-                                    <div class="item-thumb">
+                                    <div class="item-thumb" @click="detail">
                                         <img :src="item.imgSrc" alt="">
                                     </div>
                                     <div class="item-entry">
                                         <div class="item-entry-title">
-                                            <h4>{{item.title}}</h4>
+                                            <h4 @click="detail">{{item.title}}</h4>
                                         </div>
                                         <div class="item-entry-content">
                                             <div class="style">风格</div>
@@ -146,6 +146,9 @@ import top from '../../components/top'
                   this.rankingList = res.data.data
                 })
 
+            },
+            detail() {
+                this.$router.push({name:'goods'})
             },
             search() {
                let list = this.searchForm
@@ -225,6 +228,7 @@ import top from '../../components/top'
                                     .blg-thumb {
                                          width: 76px;
                                          height: 76px;
+                                         cursor: pointer;
                                          background-color: #932345;
                                         img {
                                             width: inherit;
@@ -237,6 +241,7 @@ import top from '../../components/top'
                                             text-transform: uppercase;
                                             margin: 10px 0;
                                             color: #48a3ad;
+                                            cursor: pointer;
                                         }
                                         span {
                                             color: #494C53;
@@ -296,6 +301,7 @@ import top from '../../components/top'
                             .item-thumb {
                                 width: 100%;
                                 height: 230px;
+                                cursor: pointer;
                                 img {
                                     height: inherit;
                                     width: inherit;
@@ -309,6 +315,9 @@ import top from '../../components/top'
                                     border-bottom: dotted 1px rgb(163, 166, 173);
                                     height: 36px;
                                     // width: 666px;
+                                    h4 {
+                                         cursor: pointer;
+                                    }
                                 }
                                 .item-entry-content {
                                     .style {

@@ -10,10 +10,14 @@
       @select="handleSelect"
     >
       <el-menu-item index="1" @click="goHome">首页</el-menu-item>
-      <el-menu-item index="2" @click="user">个人中心</el-menu-item>
-      <el-menu-item index="3" @click="login">登录</el-menu-item>
-      <el-menu-item index="3" @click="tatget">分类</el-menu-item>
-      <el-menu-item index="4">广场</el-menu-item>
+      <el-menu-item index="2" @click="tatget">分类</el-menu-item>
+      <el-menu-item index="3" @click="user" v-if="islogin =='isLogin'">
+        <div class="user">
+          <img src="http://i1.bvimg.com/686721/5ba1dfe1795c949ft.jpg" alt="">
+        </div>
+      </el-menu-item>
+      <el-menu-item index="4" @click="login" v-if="islogin !='isLogin'">登录</el-menu-item>
+      <el-menu-item index="4" @click="loginOut" v-else>退出登录</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -23,8 +27,15 @@ export default {
   name: "Title",
   data() {
     return {
-      activeIndex: "1"
+      activeIndex: "",
+      islogin: ''
     };
+  },
+  created() {
+    this.islogin = localStorage.flag
+  },
+  mounted() {
+      this.activeIndex = this.$route.query.num
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -36,15 +47,36 @@ export default {
       })
     },
     login () {
-      this.$router.push({name:'login'})
+      this.$router.push({name:'login',
+      query: {
+        num: '4'
+      }})
       document.documentElement.scrollTop = 0
     },
+    loginOut() {
+      this.$message({
+        message: '退出当前用户'
+      });
+      localStorage.removeItem("flag")
+      this.$store.dispatch('logout')
+      this.login()
+    },
     user () {
-      this.$router.push({name:'user'})
+      this.$router.push({
+        name:'user',
+        query: {
+                 num: '3'
+               }
+        })
       document.documentElement.scrollTop = 0
     },
     tatget () {
-      this.$router.push({name:'classify'})
+      this.$router.push({
+        name:'classify',
+        query: {
+          num: '2'
+        }
+      })
       document.documentElement.scrollTop = 0
     }
   }
@@ -72,6 +104,18 @@ export default {
             height: inherit;
             width: inherit;
             
+        }
+    }
+
+    .el-menu-item  {
+        .user {
+          width: 50px;
+          height: 50px;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
         }
     }
 
