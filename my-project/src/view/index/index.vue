@@ -72,15 +72,15 @@ export default {
     }
   },
   mounted () {
-    console.log('localStorage.flag==')
-    console.log(localStorage)
+    // console.log('localStorage.flag==')
+    // console.log(localStorage)
     this.islogin = localStorage.flag
     // let that = this
       setTimeout(() => {
         // console.log('eee')
         // console.log(that.$refs.gun)
         this.elWidth = this.$refs.gun.clientWidth // 父元素的宽度
-        console.log( this.elWidth)
+        // console.log( this.elWidth)
       }, 1000);
       
        window.addEventListener('resize', this.handle, false)

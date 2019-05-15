@@ -13,7 +13,7 @@
       <el-menu-item index="2" @click="tatget">分类</el-menu-item>
       <el-menu-item index="3" @click="user" v-if="islogin =='isLogin'">
         <div class="user">
-          <img src="http://i1.bvimg.com/686721/5ba1dfe1795c949ft.jpg" alt="">
+          <img :src="headImg" alt="">
         </div>
       </el-menu-item>
       <el-menu-item index="4" @click="login" v-if="islogin !='isLogin'">登录</el-menu-item>
@@ -28,11 +28,15 @@ export default {
   data() {
     return {
       activeIndex: "",
-      islogin: ''
+      islogin: '',
+      headImg: ''
     };
   },
   created() {
     this.islogin = localStorage.flag
+    if (this.islogin) {
+      this.userInfo()
+    }
   },
   mounted() {
       this.activeIndex = this.$route.query.num
@@ -40,6 +44,15 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    userInfo() {
+      let args = localStorage.user
+      args = JSON.parse(args)
+      this.$ajax.post('/api/user/userInfo',args)
+      .then((res) => {
+        let userDate = res.data.data[0]
+        this.headImg = userDate.headImg
+      })
     },
     goHome () {
       this.$router.push({

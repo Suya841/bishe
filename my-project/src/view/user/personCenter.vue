@@ -34,10 +34,10 @@
       </div>
       <div class="upPage-na">
         <div class="self-photo">
-          <img src="http://i1.bvimg.com/686721/75e69563ef62017dt.jpg">
+          <img :src="userInfo.headImg">
         </div>
         <div class="self-name">
-          <span>Kamenashi Kazuya</span>
+          <span>{{userInfo.name}}</span>
         </div>
         <div class="self-set">
           <i class="el-icon-setting"></i>
@@ -234,7 +234,8 @@ export default {
       centerDialogVisible: false,
       showEmoji: false,
       value: "",
-      data: []
+      data: [],
+      userInfo: {}
     };
   },
   mounted() {
@@ -243,6 +244,9 @@ export default {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
     // console.log(document.documentElement.scrollTop);
+    if (localStorage.flag) {
+      this.getInfo()
+    }
     this.getList();
   },
   methods: {
@@ -294,6 +298,16 @@ export default {
     clear() {
       this.imgList = [];
     },
+    getInfo() {
+      let args = localStorage.user
+      args = JSON.parse(args)
+      this.$ajax.post('/api/user/userInfo',args)
+      .then((res) => {
+        let userDate = res.data.data[0]
+        this.userInfo = userDate
+        console.log(this.userInfo)
+      })
+    },
     onSubmit() {
       this.upform.text = this.upform.text.replace(/\n/gm,"<br/>")
       let myDate = new Date();
@@ -307,7 +321,7 @@ export default {
       let img = JSON.stringify(this.imgList);
 
       let args = {
-        userID: "223",
+        userID: this.userInfo.userID,
         content: this.upform.text,
         img: img,
         creatDate: curDay

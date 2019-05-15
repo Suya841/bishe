@@ -120,13 +120,10 @@
             handleSubmit (e) {
               console.log(e)
               this.$refs.loginForm.validate((valid) => {
-
-              console.log('join=====')
                let args = {
                   userName: this.form.userName,
                   password: this.form.password
                 }
-                console.log(args)
 
                 if(e == '登录') {
                   this.$ajax.post('/api/user/login',args,{})
@@ -136,8 +133,6 @@
                       this.$router.push({name:'index'})
                       localStorage.setItem("flag","isLogin")
                       this.$store.dispatch('login',args)
-                      console.log('window.localStorage denglu======')
-                      console.log(window.localStorage)
 
                     }else if(loginData.code == 400){
                         this.$message({
@@ -145,41 +140,24 @@
                          type: 'warning'
                        });
                     }
-
                     console.log(res.data);
                   })
                 }else {
                   this.$ajax.post('/api/user/addUser',args)
                   .then((res) => {
+                    if(res.data.code == 200) {
+                      this.$router.push({name:'index'})
+                       localStorage.setItem("flag","isLogin")
+                      this.$store.dispatch('login',args)
+                    }else {
+                      this.$message({
+                         message: res.data.msg,
+                         type: 'warning'
+                       });
+                    }
                     console.log(res);
                   })
                 }
-
-               
-
-                // if (valid) {
-                //   try {
-                //     await this.authLogin({
-                //       userName: this.form.userName,
-                //       password: this.form.password
-                //     })
-
-                //     const { redirect } = this.$route.query
-                //     console.log('redirect======')
-                //     console.log(redirect)
-                //     const url = redirect || '/#/'
-                //     if (window.$hashRedirect) {
-                //       window.$hashRedirect(url)
-                //     } else {
-                //       window.location = url
-                //     }
-                //   } catch (e) {
-                //       console.log("233333====")
-                //       this.$message.error('cuola')
-                //       console.log(e)
-                //     // this.axios.$onError(e)
-                //   }
-                // }
               })
             }
         }

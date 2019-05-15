@@ -8,7 +8,7 @@ module.exports = {
 
         func.connPool(sql,[],(err,rows) => {
             console.log('goodslist=====')
-            console.log(rows)
+            // console.log(rows)
             let len = rows.length || 0
             res.json({code:200,msg:'ggg',data:rows,cuur:len})
         })
@@ -32,7 +32,7 @@ module.exports = {
         console.log('rul' + rul)
         func.connPool(sql,[rul],(err,rows) => {
             console.log('style=====')
-            console.log(rows)
+            // console.log(rows)
             let len = rows.length || 0
             res.json({code:200,msg:'sss',data:rows,cuur:len})
         })
@@ -43,7 +43,7 @@ module.exports = {
         let rul = req.body.rul
         func.connPool(sql,[],(err,rows) => {
             console.log('style=====')
-            console.log(rows)
+            // console.log(rows)
             res.json({code:200,msg:'sss',data:rows})
         })
     },
@@ -54,7 +54,7 @@ module.exports = {
         let re = req.body
         func.connPool(sql,[re.userID,re.content,re.img,re.creatDate],(err,rows) => {
             console.log('style=====')
-            console.log(rows)
+            // console.log(rows)
             res.json({code:200,msg:'sss',data:rows})
         }) 
     },
@@ -64,7 +64,7 @@ module.exports = {
         let re = req.body
         func.connPool(sql,[],(err,rows) => {
             console.log('result=====')
-            console.log(rows)
+            // console.log(rows)
             if (rows) {
                 res.json({code:200,msg:'sss',data:rows})
             }

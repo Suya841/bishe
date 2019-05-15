@@ -4,6 +4,7 @@ module.exports = {
     //user
     userLogin: path + '/user/login',
     userAdd: path + '/user/addUser',
+    userInfo: path + '/user/userInfo',
 
     uploadInfo: path + '/content/upload',
     uploadimg: path + '/content/upimg',

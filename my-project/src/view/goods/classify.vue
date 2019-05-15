@@ -135,14 +135,14 @@ import top from '../../components/top'
 
                 this.$ajax.post('/api/goods/list',args)
                 .then((res) => {
-                  console.log(res.data);
+                //   console.log(res.data);
                   this.goodsList = res.data.data
                   this.totla = res.data.cuur
                 })
 
                 this.$ajax.post('/api/goods/ranking',args)
                 .then((res) => {
-                  console.log(res.data);
+                //   console.log(res.data);
                   this.rankingList = res.data.data
                 })
 

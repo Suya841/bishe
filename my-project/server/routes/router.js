@@ -6,6 +6,7 @@ let router = express.Router()
 
 router.post(api.userAdd,user.addOne)
 router.post(api.userLogin,user.userLogin)
+router.post(api.userInfo,user.userInfo)
 
 router.post(api.goodsList,goods.getList)
 router.post(api.goodsDetail,goods.getDetail)
