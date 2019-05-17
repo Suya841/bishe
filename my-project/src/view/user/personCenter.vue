@@ -1,40 +1,16 @@
 <template>
   <div id="perCenter">
-    <headmenu></headmenu>
+    <headmenu ref='head'></headmenu>
     <top></top>
     <div class="upPage">
       <div class="upPage-up">
         <div class="upPage-ue">
-          <!-- <img src="http://img2.imgtn.bdimg.com/it/u=1960548875,2286028701&fm=26&gp=0.jpg">
-                    <div class="ue">
-                        <div>
-                            <ul>
-                                <li><p>人气</p></li>
-                                <li>0</li>
-                            </ul>
-                            <span class="hyphen"></span>
-                             <ul>
-                                <li><p>人气</p></li>
-                                <li>0</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul>
-                                <li><p>人气</p></li>
-                                <li>0</li>
-                            </ul>
-                            <span class="hyphen"></span>
-                             <ul>
-                                <li><p>人气</p></li>
-                                <li>0</li>
-                            </ul>
-                        </div>
-          </div>-->
         </div>
       </div>
       <div class="upPage-na">
         <div class="self-photo">
           <img :src="userInfo.headImg">
+          <input type="file" @change="selectImgs()" multiple accept="image/*" ref="file" :disabled="this.files.length >= 1">
         </div>
         <div class="self-name">
           <span>{{userInfo.name}}</span>
@@ -155,40 +131,7 @@
           </div>
         </ElTabPane>
         <ElTabPane label="收藏" class="shiyan">
-          <!-- 实验 -->
-          <!-- <el-input
-            type="textarea"
-            :autosize="{ minRows: 10, maxRows: 20}"
-            placeholder="请输入内容"
-            resize="none"
-            v-model="value"
-          ></el-input>
-          <div class="icon clearfix">
-            <i class="icon iconfont icon-face" @click="showEmoji = !showEmoji">
-                表情
-            </i>
-            <el-button type="success" size="small" @click="submit" class="submit">提交</el-button>
-            <transition name="fade" mode>
-              <div class="emoji-box" v-if="showEmoji">
-                <el-button
-                  class="pop-close"
-                  :plain="true"
-                  type="danger"
-                  size="mini"
-                  icon="close"
-                  @click="showEmoji = false"
-                ><i>x</i></el-button>
-                <vue-emoji @select="selectEmoji"></vue-emoji>
-                <span class="pop-arrow arrow"></span>
-              </div>
-            </transition>
-          </div>
-          <transition-group tag="div" name="list" class="comment">
-            <p v-for="(item,index) in data" :key="index" class="item">
-              <span v-html="emoji(item)"></span>
-            </p>
-          </transition-group> -->
-          <!-- 实验 -->
+         
         </ElTabPane>
         <ElTabPane label="资料">
           <uploader @getFiles="getImageList" @removeFiles="removeImage"></uploader>
@@ -235,6 +178,7 @@ export default {
       showEmoji: false,
       value: "",
       data: [],
+      files: [],
       userInfo: {}
     };
   },
@@ -250,6 +194,50 @@ export default {
     this.getList();
   },
   methods: {
+    selectImgs() { //更换头像
+      let fileList = this.$refs.file.files;
+      console.log('filelist=====')
+      console.log(fileList)
+          let tempList = []
+      // let tempList = []; //每次点击+号后选择的图片信息
+      if (fileList.length == 0) {
+        return
+      }
+      for (let i = 0, len = 1; i < len; i++) {
+        let fileItem = {
+          Id: this.index++,
+          name: fileList[0].name,
+          size: fileList[0].size,
+          file: fileList[0]
+        };
+        //将图片文件转成Base64
+        let reader = new FileReader();
+        reader.onloadend = e => {
+          this.getBase64(e.target.result).then(url => {
+            console.log('url===')
+            // console.log(url)
+            this.$set(fileItem, "src", url);
+          })
+        }
+          reader.readAsDataURL(fileList[i]);
+          tempList.push(fileItem);
+      }
+      // this.files.push(fileItem);
+      
+      setTimeout(() => {
+          let args = {
+            headImg: tempList[0].src,
+            userID: this.userInfo.userID
+          }
+          // console.log(args)
+          this.$ajax.post('/api/user/upHead',args)
+          .then((res) => {
+            console.log(res)
+            this.getInfo()
+            this.$refs.head.userInfo()
+          })
+      }, 1000);
+    },
     selectEmoji(code) {
       this.showEmoji = false;
       this.upform.text += code;
@@ -258,7 +246,7 @@ export default {
       this.centerDialogVisible = true;
       this.bigImg = this.reContent[e].img[k];
     },
-    getList() {
+    getList() { //显示发布的内容
       let args = {
         id: 33
       };
@@ -275,12 +263,9 @@ export default {
         }
         // console.log(list);
         this.reContent = list;
-        //  var pos = list[1].content.indexOf("\n");
-        //     console.log('pos===');
-        //     console.log(pos);
       });
     },
-    getImageList(files) {
+    getImageList(files) { //发布中选择的图片
       this.$nextTick(() => {
         for (let i = 0, len = files.length; i < len; i++) {
           this.imgList.push(files[i].src.split("base64,")[1]);
@@ -298,7 +283,7 @@ export default {
     clear() {
       this.imgList = [];
     },
-    getInfo() {
+    getInfo() { //获取当前登录用户的信息
       let args = localStorage.user
       args = JSON.parse(args)
       this.$ajax.post('/api/user/userInfo',args)
@@ -308,7 +293,42 @@ export default {
         console.log(this.userInfo)
       })
     },
-    onSubmit() {
+    getBase64(url) { //图片转换为base64格式
+      let self = this;
+      let Img = new Image(),
+        dataURL = "";
+      Img.src = url;
+      let p = new Promise(function(resolve, reject) {
+        Img.onload = function() {
+          //要先确保图片完整获取到，这是个异步事件
+          let canvas = document.createElement("canvas"), //创建canvas元素
+            width = Img.width, //确保canvas的尺寸和图片一样
+            height = Img.height;
+          // 默认将长宽设置为图片的原始长宽，这样在长宽不超过最大长度时就不需要再处理
+          let ratio = width / height,
+            maxLength = 1000,
+            newHeight = height,
+            newWidth = width;
+          // 在长宽超过最大长度时，按图片长宽比例等比缩小
+          if (width > maxLength || height > maxLength) {
+            if (width > height) {
+              newWidth = maxLength;
+              newHeight = maxLength / ratio;
+            } else {
+              newWidth = maxLength * ratio;
+              newHeight = maxLength;
+            }
+          }
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          canvas.getContext("2d").drawImage(Img, 0, 0, newWidth, newHeight); //将图片绘制到canvas中
+          dataURL = canvas.toDataURL("image/jpeg", 0.5); //转换图片为dataURL
+          resolve(dataURL);
+        };
+      });
+      return p;
+    },
+    onSubmit() { //发布
       this.upform.text = this.upform.text.replace(/\n/gm,"<br/>")
       let myDate = new Date();
       const Y = myDate.getFullYear();
@@ -799,5 +819,15 @@ body {
   //     background-color: #fff;
   //     min-height: 663px;
   // }
+}
+input[type="file"] {
+  position: absolute;
+  left: 26px;
+  top: 16px;
+  width: 78%;
+  height: 86%;
+  opacity: 0;
+  cursor: pointer;
+  background-color: #678435;
 }
 </style>

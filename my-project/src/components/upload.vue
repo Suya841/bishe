@@ -92,7 +92,10 @@ export default {
     selectImgs() {
       let fileList = this.$refs.file.files;
       if (fileList.length > 9) {
-        alert(this.lang.dynamic_upload_tips);
+        this.$message({
+            message: '只能选择9张图片',
+            type: 'warning'
+          });
       }
       let tempList = []; //每次点击+号后选择的图片信息
       for (let i = 0, len = fileList.length; i < len; i++) {
@@ -384,26 +387,8 @@ export default {
 .add {
     width: 66px;
     position: relative;
-input {
-    cursor: pointer;
-}
 
   .ico {
-        // background-color: pink;
-        // width: 166px;
-        // height: 26px;
-        // margin-left: 36px;
-        // .upload-demo {
-        //  display: inline-block;
-        //  .el-upload-list {
-        //     //  display: none;
-        //  }
-        // }
-        // .ico {
-        //  cursor: pointer;
-        //  display: inline-block;
-        // }
-    cursor: pointer;
         .iconImg {
             width: 18px;
             height: 18px;
@@ -479,9 +464,10 @@ input[type="file"] {
   left: 0;
   top: 0;
   width: 100%;
-//   height: 110px;
+  height: 100%;
   opacity: 0;
   cursor: pointer;
   background-color: #678435;
+  z-index: 999;
 }
 </style>

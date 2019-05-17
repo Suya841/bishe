@@ -3,7 +3,8 @@ var sqlMap = {
         add: 'insert into user(id,name,password) values (0,?,?)',
         select: 'select * from user where name = ?',
         userInfo: 'select * from userInfo where userID = (select id from user where name = ?)',
-        addInfo: 'insert into userinfo(userID,name,headImg) values(?,?,?)'
+        addInfo: 'insert into userinfo(userID,name,headImg) values(?,?,?)',
+        upHead: 'update userinfo set headImg = ? where userID = ?'
     },
     goods: {
         getList: 'select * from goods',

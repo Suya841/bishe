@@ -5,6 +5,7 @@ module.exports = {
     userLogin: path + '/user/login',
     userAdd: path + '/user/addUser',
     userInfo: path + '/user/userInfo',
+    upHead: path + '/user/upHead',
 
     uploadInfo: path + '/content/upload',
     uploadimg: path + '/content/upimg',

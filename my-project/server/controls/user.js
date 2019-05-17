@@ -98,6 +98,21 @@ module.exports = {
         })
     },
 
+    upHead (req,res) {
+        var sql = $sql.user.upHead
+        var params = req.body
+        console.log('name====')
+        // console.log(params)
+        func.connPool(sql,[params.headImg,params.userID],(err,rows) => {
+                // console.log(rows)
+                if (err) {
+                     res.json({code:400,msg:'cuol',data:rows})
+                }else {
+                   res.json({code:200,msg:'fine',data:rows})
+                }
+        })
+    },
+
     userInfo (req,res) {
         var sql = $sql.user.userInfo
         var params = req.body.userName
